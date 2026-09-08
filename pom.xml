@@ -68,6 +68,14 @@
             <version>10.17.1.0</version>
             <scope>runtime</scope>
         </dependency>
+
+        <!-- Source: https://mvnrepository.com/artifact/com.jtattoo/JTattoo -->
+        <dependency>
+            <groupId>com.jtattoo</groupId>
+            <artifactId>JTattoo</artifactId>
+            <version>1.6.13</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <!-- Source: https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jdbc -->
