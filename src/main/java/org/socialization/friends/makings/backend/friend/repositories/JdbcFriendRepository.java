@@ -90,6 +90,10 @@ public class JdbcFriendRepository implements FriendRepository{
         }
     }
 
+    private void checkDateIsValid(String date){
+
+    }
+
     @Override
     public void deleteFriend(int friendId) {
         String sql = env.getProperty("sql.id_friend_exists");
