@@ -134,10 +134,11 @@ public class JdbcFriendRepositoryTests {
                 , "female"
                 ,"barely-known"
                 , new Date());
-        return builder
+        Friend friend = builder
                 .setDateMet(new Date())
                 .setDescription("Funny girl but rude.")
                 .build();
+        return friend;
     }
 
     //This test is not fully reliable and tests only the containment of test-inserted elements in the getAllFriends

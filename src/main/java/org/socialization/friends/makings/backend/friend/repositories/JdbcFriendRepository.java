@@ -19,8 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-//@Repository
-//@Profile("jdbc")
+@Repository
+@Profile("jdbc")
 @Transactional(propagation = Propagation.REQUIRED)
 public class JdbcFriendRepository implements FriendRepository{
 
@@ -34,6 +34,7 @@ public class JdbcFriendRepository implements FriendRepository{
     public JdbcFriendRepository(JdbcTemplate jdbcTemplate, Environment env) {
         this.jdbcTemplate = jdbcTemplate;
         this.env = env;
+        dateFormat.setLenient(true);
     }
 
     private final String dateFormatPattern = "MM/dd/yyyy";
@@ -59,7 +60,9 @@ public class JdbcFriendRepository implements FriendRepository{
         }
 
         sql = env.getProperty("sql.find_max_friend_id");
-        return jdbcTemplate.queryForObject(sql, Integer.class);
+        Integer newFriendId = jdbcTemplate.queryForObject(sql, Integer.class);
+        friend.setId(newFriendId);
+        return newFriendId;
     }
 
     @Override

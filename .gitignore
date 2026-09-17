@@ -33,3 +33,7 @@ build/
 .vscode/
 
 ### Environment files ###
+src/main/resources/application.properties
+
+### Databse ###
+src/main/resources/friends

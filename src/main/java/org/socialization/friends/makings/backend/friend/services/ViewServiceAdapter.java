@@ -1,11 +1,12 @@
 package org.socialization.friends.makings.backend.friend.services;
 
+import com.sun.jdi.VoidType;
 import org.socialization.friends.makings.backend.friend.Friend;
 import org.socialization.friends.makings.backend.friend.exceptions.LongDescriptionException;
 import org.socialization.friends.makings.backend.friend.exceptions.NoSuchFriendIdException;
 import org.socialization.friends.makings.backend.friend.exceptions.NoSuchGenderException;
 import org.socialization.friends.makings.backend.friend.exceptions.NoSuchStatusException;
-import org.socialization.friends.makings.backend.friend.repositories.FriendRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -13,21 +14,22 @@ import java.util.List;
 
 @Service
 @Profile({"production","test"})
-public class StatedFriendService implements FriendService{
+public class ViewServiceAdapter implements ServiceAdapter {
 
-    FriendRepository friendRepository;
+    private final FriendService service;
     private BackendErrorState errorState = BackendErrorState.OK;
 
-    public StatedFriendService(FriendRepository friendRepository) {
-        this.friendRepository = friendRepository;
+
+    public ViewServiceAdapter(FriendService service) {
+        this.service = service;
     }
 
     @Override
-    public Integer addFriend(Friend friend) {
+    public Integer adaptAddFriend(Friend friend) {
         errorState = BackendErrorState.OK;
         Integer newFriendId = null;
         try{
-        newFriendId = friendRepository.addFriend(friend);
+            newFriendId = service.addFriend(friend);
         }
         catch(LongDescriptionException e){
             errorState = BackendErrorState.LongDescription;
@@ -42,32 +44,34 @@ public class StatedFriendService implements FriendService{
     }
 
     @Override
-    public void updateFriendStatus(Integer friendId, String newStatus) {
+    public void adaptUpdateFriendStatus(Integer friendId, String newStatus) {
         errorState = BackendErrorState.OK;
         try{
-        friendRepository.updateFriendStatus(friendId, newStatus);
+            service.updateFriendStatus(friendId, newStatus);
         }
         catch(NoSuchStatusException e){
             errorState = BackendErrorState.BadStatus;
         }
+        catch(NoSuchFriendIdException e){
+            errorState = BackendErrorState.BadFriendId;
+        }
     }
 
     @Override
-    public void deleteFriend(int friendNumber) {
+    public void adaptDeleteFriend(Integer friendNumber) {
         errorState = BackendErrorState.OK;
         try{
-        friendRepository.deleteFriend(friendNumber);
+            service.deleteFriend(friendNumber);
         }catch(NoSuchFriendIdException e){
             errorState = BackendErrorState.BadFriendId;
         }
     }
 
     @Override
-    public List<Friend> showAllFriends() {
+    public List<Friend> adaptGetAllFriends() {
         errorState = BackendErrorState.OK;
-        return friendRepository.getAllFriends();
+        return service.getAllFriends();
     }
-
 
     public BackendErrorState getErrorState() {
         return errorState;

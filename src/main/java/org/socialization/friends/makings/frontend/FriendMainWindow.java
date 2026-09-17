@@ -3,6 +3,13 @@ package org.socialization.friends.makings.frontend;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.socialization.friends.IntrovertFriendMakingApplication;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;;
 @Component
 public class FriendMainWindow extends JFrame {
@@ -51,5 +58,29 @@ public class FriendMainWindow extends JFrame {
         firstButtonGroup.add(updateFriendStatusButton);
         deleteFriendButton.setFont(buttonTextFont);
         firstButtonGroup.add(deleteFriendButton);
+    }
+
+    public static void main(String[] args) {
+        setLookAndFeel();
+        JFrame frame = new FriendMainWindow();
+        SwingUtilities.invokeLater(() -> frame.setVisible(true));
+    }
+
+    private static void setLookAndFeel(){
+        try
+        {
+            // Here you can select the selected theme class name in JTattoo
+            UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
+        }
+        catch (InstantiationException ex)
+        {
+            Logger.getLogger(FriendMainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (IllegalAccessException ignored)
+        {
+        } catch (UnsupportedLookAndFeelException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
