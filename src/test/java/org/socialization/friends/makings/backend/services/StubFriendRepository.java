@@ -1,6 +1,5 @@
 package org.socialization.friends.makings.backend.services;
 
-import org.socialization.friends.config.TestInfrastructureConfig;
 import org.socialization.friends.makings.backend.friend.Friend;
 import org.socialization.friends.makings.backend.friend.exceptions.LongDescriptionException;
 import org.socialization.friends.makings.backend.friend.exceptions.NoSuchFriendIdException;
@@ -9,7 +8,6 @@ import org.socialization.friends.makings.backend.friend.exceptions.NoSuchStatusE
 import org.socialization.friends.makings.backend.friend.repositories.FriendRepository;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.util.*;
 

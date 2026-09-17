@@ -13,4 +13,5 @@ public class TestInfrastructureConfig  {
     public FriendRepository stubFriendRepository(){
         return new StubFriendRepository();
     }
+
 }

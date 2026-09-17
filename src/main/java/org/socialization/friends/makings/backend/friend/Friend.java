@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class Friend {
+    private Integer id;
     private String name;
     private String surname;
     private String gender;
@@ -33,6 +34,14 @@ public class Friend {
 
     public Friend(){}
 
+    public Integer getId(){
+        return this.id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -60,6 +69,7 @@ public class Friend {
     public Optional<String> getDescription() {
         return description;
     }
+
 
     public void setName(String name) {
         this.name = name;
@@ -114,14 +124,11 @@ public class Friend {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Friend friend = (Friend) o;
-        return Objects.equals(name, friend.name) &&
-               Objects.equals(surname, friend.surname) &&
-               Objects.equals(gender, friend.gender) &&
-               Objects.equals(status, friend.status);
+        return this.id.equals(friend.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, gender, status, birthDate);
+        return Objects.hash(id);
     }
 }

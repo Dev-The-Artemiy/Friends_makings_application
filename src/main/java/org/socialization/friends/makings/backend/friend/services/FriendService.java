@@ -8,5 +8,5 @@ public interface FriendService {
     Integer addFriend(Friend friend);
     void updateFriendStatus(Integer friendId, String newStatus);
     void deleteFriend(int friendNumber);
-    List<Friend> showAllFriends();
+    List<Friend> getAllFriends();
 }
