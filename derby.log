@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Sun Sep 20 20:10:17 CEST 2026:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.17.1.0 - (1913217): instance a816c00e-01a0-c002-cede-000000f3d278 
+on database directory C:\Users\artem\IdeaProjects\IntrovertFriendMaking\src\main\resources\friends with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@14dad5dc 
+Loaded from file:/C:/Users/artem/.m2/repository/org/apache/derby/derby/10.17.1.0/derby-10.17.1.0.jar
+java.vendor=Oracle Corporation
+java.runtime.version=26.0.1+8-34
+user.dir=C:\Users\artem\IdeaProjects\IntrovertFriendMaking
+os.name=Windows 11
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

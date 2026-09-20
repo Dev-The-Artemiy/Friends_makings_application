@@ -2,6 +2,9 @@ package org.socialization.friends;
 
 import org.apache.derby.impl.tools.sysinfo.Main;
 import org.socialization.friends.makings.backend.friend.repositories.FriendRepository;
+import org.socialization.friends.makings.backend.friend.repositories.GenderRepository;
+import org.socialization.friends.makings.backend.friend.repositories.StatusRepository;
+import org.socialization.friends.makings.backend.friend.services.ListableService;
 import org.socialization.friends.makings.backend.friend.services.ViewServiceAdapter;
 import org.socialization.friends.makings.frontend.FriendMainWindow;
 import org.springframework.boot.SpringApplication;
@@ -27,7 +30,9 @@ public class IntrovertFriendMakingApplication {
                         .headless(false)
                         .web(WebApplicationType.NONE).run();
         ViewServiceAdapter adapter = (ViewServiceAdapter) context.getBean("viewServiceAdapter");
-        FriendMainWindow frame = new FriendMainWindow(adapter);
+        ListableService listableService = (ListableService)context.getBean("listableServiceImpl");
+
+        FriendMainWindow frame = new FriendMainWindow(adapter, listableService);
         frame.setUpListeners();
 
         SwingUtilities.invokeLater(() -> frame.setVisible(true));

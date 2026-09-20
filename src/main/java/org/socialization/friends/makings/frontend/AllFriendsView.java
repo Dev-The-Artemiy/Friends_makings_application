@@ -33,6 +33,7 @@ public class AllFriendsView extends JPanel {
 
     public AllFriendsView(List<Friend> friends) {
         this.friends = friends;
+        tableModel.setFriends(friends);
 
         this.setLayout(new BorderLayout(10, 10));
         this.setBorder(new LineBorder(Color.BLACK, 2));

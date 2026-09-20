@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
@@ -127,6 +128,14 @@ public class AddFriendView extends JPanel {
         clearDateMetButton.addActionListener(e -> {
             dateMetPicker.getModel().setValue(null);
             dateMetPicker.getModel().setSelected(false);
+        });
+
+        backButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = (JFrame)SwingUtilities.getWindowAncestor(backButton);
+                frame.dispose();
+            }
         });
     }
 

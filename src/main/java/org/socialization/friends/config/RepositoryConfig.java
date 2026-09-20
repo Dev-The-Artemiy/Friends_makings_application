@@ -1,7 +1,6 @@
 package org.socialization.friends.config;
 
-import org.socialization.friends.makings.backend.friend.repositories.FriendRepository;
-import org.socialization.friends.makings.backend.friend.repositories.JdbcFriendRepository;
+import org.socialization.friends.makings.backend.friend.repositories.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -17,5 +16,17 @@ public class RepositoryConfig {
     @Profile("jdbc")
     public FriendRepository friendRepository(JdbcTemplate jdbcTemplate, Environment env){
         return new JdbcFriendRepository(jdbcTemplate, env);
+    }
+
+    @Bean
+    @Profile("jdbc")
+    public StatusRepository jdbcStatusRepository(Environment env, JdbcTemplate jdbcTemplate){
+        return new JdbcStatusRepository(env, jdbcTemplate);
+    }
+
+    @Bean
+    @Profile("jdbc")
+    public GenderRepository jdbcGenderRepository(Environment env, JdbcTemplate jdbcTemplate){
+        return new JdbcGenderRepository(env, jdbcTemplate);
     }
 }

@@ -8,17 +8,16 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.socialization.friends.IntrovertFriendMakingApplication;
-import org.socialization.friends.makings.backend.friend.services.FriendService;
+import org.socialization.friends.makings.backend.friend.services.ListableService;
 import org.socialization.friends.makings.backend.friend.services.ViewServiceAdapter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.WebApplicationType;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ApplicationContext;
+
+import java.util.List;
+
 
 
 public class FriendMainWindow extends JFrame {
-    ViewServiceAdapter adapter;
+    private final ViewServiceAdapter adapter;
+    private final ListableService listableService;
 
     private final JPanel mainPanel = new JPanel();
 
@@ -37,9 +36,10 @@ public class FriendMainWindow extends JFrame {
 
 
 
-    public FriendMainWindow(ViewServiceAdapter adapter) throws HeadlessException {
+    public FriendMainWindow(ViewServiceAdapter adapter, ListableService listableService) throws HeadlessException {
         super("FriendMakings");
         this.adapter = adapter;
+        this.listableService = listableService;
         this.setSize(960,540);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
@@ -75,7 +75,9 @@ public class FriendMainWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent event){
                 JFrame frame = getFrame(960,540, "Add friend");
-                JPanel addFriendView = new AddFriendView(adapter, new ArrayList<String>(), new ArrayList<String>());
+                JPanel addFriendView = new AddFriendView(adapter
+                        ,listableService.getGenders()
+                        ,listableService.getStatuses());
                 frame.getContentPane().add(addFriendView);
                 frame.setVisible(true);
             }
@@ -85,7 +87,7 @@ public class FriendMainWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent event){
                 JFrame frame = getFrame(450,280, "Update friend status");
-                JPanel updateFriendStatusView = new UpdateFriendStatusView(new ArrayList<String>());
+                JPanel updateFriendStatusView = new UpdateFriendStatusView(listableService.getStatuses());
                 frame.getContentPane().add(updateFriendStatusView);
                 frame.setVisible(true);
             }
@@ -105,7 +107,7 @@ public class FriendMainWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent event){
                 JFrame frame = getFrame(450,280, "All friends");
-                JPanel allFriendsView = new AllFriendsView(new ArrayList<>());
+                JPanel allFriendsView = new AllFriendsView(adapter.adaptGetAllFriends());
                 frame.getContentPane().add(allFriendsView);
                 frame.setVisible(true);
             }
