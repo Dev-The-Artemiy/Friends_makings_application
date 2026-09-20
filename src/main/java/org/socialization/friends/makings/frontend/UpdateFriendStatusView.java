@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
-@Component
+
 public class UpdateFriendStatusView extends JPanel {
 
     private final JTextField friendIdTextField = new JTextField();

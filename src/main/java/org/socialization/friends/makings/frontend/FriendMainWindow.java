@@ -3,16 +3,23 @@ package org.socialization.friends.makings.frontend;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.socialization.friends.IntrovertFriendMakingApplication;
+import org.socialization.friends.makings.backend.friend.services.FriendService;
+import org.socialization.friends.makings.backend.friend.services.ViewServiceAdapter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;;
-@Component
+
+
 public class FriendMainWindow extends JFrame {
+    ViewServiceAdapter adapter;
+
     private final JPanel mainPanel = new JPanel();
 
     private final String mainHeaderString = "Friend makings application";
@@ -29,8 +36,10 @@ public class FriendMainWindow extends JFrame {
 
 
 
-    public FriendMainWindow() throws HeadlessException {
+
+    public FriendMainWindow(ViewServiceAdapter adapter) throws HeadlessException {
         super("FriendMakings");
+        this.adapter = adapter;
         this.setSize(960,540);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
@@ -60,11 +69,61 @@ public class FriendMainWindow extends JFrame {
         firstButtonGroup.add(deleteFriendButton);
     }
 
-    public static void main(String[] args) {
-        setLookAndFeel();
-        JFrame frame = new FriendMainWindow();
-        SwingUtilities.invokeLater(() -> frame.setVisible(true));
+
+    public void setUpListeners(){
+        addFriendButton.addActionListener(new AbstractAction(){
+            @Override
+            public void actionPerformed(ActionEvent event){
+                JFrame frame = getFrame(960,540, "Add friend");
+                JPanel addFriendView = new AddFriendView(adapter, new ArrayList<String>(), new ArrayList<String>());
+                frame.getContentPane().add(addFriendView);
+                frame.setVisible(true);
+            }
+        });
+
+        updateFriendStatusButton.addActionListener(new AbstractAction(){
+            @Override
+            public void actionPerformed(ActionEvent event){
+                JFrame frame = getFrame(450,280, "Update friend status");
+                JPanel updateFriendStatusView = new UpdateFriendStatusView(new ArrayList<String>());
+                frame.getContentPane().add(updateFriendStatusView);
+                frame.setVisible(true);
+            }
+        });
+
+        deleteFriendButton.addActionListener(new AbstractAction(){
+            @Override
+            public void actionPerformed(ActionEvent event){
+                JFrame frame = getFrame(450,280, "Delete friend");
+                JPanel deleteFriendView = new DeleteFriendView(adapter);
+                frame.getContentPane().add(deleteFriendView);
+                frame.setVisible(true);
+            }
+        });
+
+        showAllFriendsButton.addActionListener(new AbstractAction(){
+            @Override
+            public void actionPerformed(ActionEvent event){
+                JFrame frame = getFrame(450,280, "All friends");
+                JPanel allFriendsView = new AllFriendsView(new ArrayList<>());
+                frame.getContentPane().add(allFriendsView);
+                frame.setVisible(true);
+            }
+        });
     }
+
+    private JFrame getFrame(int width, int height, String title){
+        JFrame frame = new JFrame(title);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(960,540);
+        return frame;
+    }
+
+//    public static void main(String[] args) {
+//        setLookAndFeel();
+//        JFrame frame = new FriendMainWindow();
+//        SwingUtilities.invokeLater(() -> frame.setVisible(true));
+//    }
 
     private static void setLookAndFeel(){
         try

@@ -1,5 +1,7 @@
 package org.socialization.friends.makings.frontend;
 
+import org.socialization.friends.makings.backend.friend.services.FriendService;
+import org.socialization.friends.makings.backend.friend.services.ViewServiceAdapter;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -7,13 +9,17 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
-@Component
+
 public class DeleteFriendView extends JPanel {
+
+    private final ViewServiceAdapter adapter;
 
     private final JTextField friendIdTextField = new JTextField();
     private final JButton deleteButton = new JButton("Delete");
 
-    public DeleteFriendView() {
+    public DeleteFriendView(ViewServiceAdapter adapter) {
+        this.adapter = adapter;
+
         this.setLayout(new BorderLayout(10, 10));
         this.setBorder(new LineBorder(Color.BLACK, 2));
 
@@ -67,28 +73,28 @@ public class DeleteFriendView extends JPanel {
     public JButton getDeleteButton() { return deleteButton; }
 
     // Standalone Runner
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            try {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception ignored) {}
-
-            DeleteFriendView view = new DeleteFriendView();
-
-            JFrame frame = new JFrame("Delete Friend View Test");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setContentPane(view);
-            frame.setResizable(true);
-
-            view.getDeleteButton().addActionListener(e ->
-                    JOptionPane.showMessageDialog(view,
-                            "Delete friend id: " + view.getFriendIdTextField().getText())
-            );
-
-            frame.pack();
-            frame.setMinimumSize(new Dimension(400, 260));
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
-    }
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> {
+//            try {
+//                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//            } catch (Exception ignored) {}
+//
+//            DeleteFriendView view = new DeleteFriendView();
+//
+//            JFrame frame = new JFrame("Delete Friend View Test");
+//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//            frame.setContentPane(view);
+//            frame.setResizable(true);
+//
+//            view.getDeleteButton().addActionListener(e ->
+//                    JOptionPane.showMessageDialog(view,
+//                            "Delete friend id: " + view.getFriendIdTextField().getText())
+//            );
+//
+//            frame.pack();
+//            frame.setMinimumSize(new Dimension(400, 260));
+//            frame.setLocationRelativeTo(null);
+//            frame.setVisible(true);
+//        });
+//    }
 }

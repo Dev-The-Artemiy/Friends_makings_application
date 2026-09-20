@@ -16,8 +16,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+
 public class AllFriendsView extends JPanel {
+
+    private final List<Friend> friends;
 
     private static final String[] COLUMN_NAMES = {
             "ID", "Name", "Surname", "Birth date", "Date met", "Gender", "Status", "Description"
@@ -29,7 +31,9 @@ public class AllFriendsView extends JPanel {
     private final FriendTableModel tableModel = new FriendTableModel();
     private final JTable friendsTable = new JTable(tableModel);
 
-    public AllFriendsView() {
+    public AllFriendsView(List<Friend> friends) {
+        this.friends = friends;
+
         this.setLayout(new BorderLayout(10, 10));
         this.setBorder(new LineBorder(Color.BLACK, 2));
 
@@ -149,7 +153,7 @@ public class AllFriendsView extends JPanel {
             mockFriends.add(new Friend("John", "Doe", "Male", "Single", new Date())); // Optionals will be empty -> "None"
             mockFriends.add(new Friend("Jane", "Smith", "Female", "Married", new Date(), new Date(), "Met at college"));
 
-            AllFriendsView view = new AllFriendsView();
+            AllFriendsView view = new AllFriendsView(new ArrayList<>());
             view.setFriends(mockFriends);
 
             JFrame frame = new JFrame("All Friends View Test");

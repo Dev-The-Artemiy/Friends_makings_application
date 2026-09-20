@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("viewServiceAdapter")
 @Profile({"production","test"})
 public class ViewServiceAdapter implements ServiceAdapter {
 

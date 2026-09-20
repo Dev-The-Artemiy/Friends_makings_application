@@ -1,6 +1,8 @@
 package org.socialization.friends.makings.frontend;
 
 import org.jdatepicker.JDatePicker;
+import org.socialization.friends.makings.backend.friend.services.FriendService;
+import org.socialization.friends.makings.backend.friend.services.ViewServiceAdapter;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -11,8 +13,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@Component
 public class AddFriendView extends JPanel {
+
+    private final ViewServiceAdapter adapter;
 
     private final JTextField nameTextField = new JTextField();
     private final JTextField surnameTextField = new JTextField();
@@ -34,7 +37,11 @@ public class AddFriendView extends JPanel {
     private final JButton addButton = new JButton("Add");
     private final JButton backButton = new JButton("Back");
 
-    public AddFriendView(List<String> genders, List<String> statuses) {
+    public AddFriendView(ViewServiceAdapter adapter, List<String> genders, List<String> statuses) {
+        this.adapter = adapter;
+
+        this.setSize(960,540);
+
         this.setLayout(new BorderLayout(10, 10));
         this.setBorder(new EmptyBorder(20, 30, 20, 30));
 
@@ -170,24 +177,24 @@ public class AddFriendView extends JPanel {
     public JButton getAddButton() { return addButton; }
     public JButton getBackButton() { return backButton; }
 
-    // Standalone Runner
-    public static void main(String[] args) {
-        setLookAndFeel();
-        SwingUtilities.invokeLater(() -> {
-            List<String> mockGenders = Arrays.asList("Male", "Female", "Non-Binary", "Other");
-            List<String> mockStatuses = Arrays.asList("Single", "In a relationship", "Engaged", "Married");
-
-            AddFriendView view = new AddFriendView(mockGenders, mockStatuses);
-
-            JFrame frame = new JFrame("Add Friend View Test");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setContentPane(view);
-            frame.pack();
-            frame.setSize(550, 620);
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
-    }
+//    // Standalone Runner
+//    public static void main(String[] args) {
+//        setLookAndFeel();
+//        SwingUtilities.invokeLater(() -> {
+//            List<String> mockGenders = Arrays.asList("Male", "Female", "Non-Binary", "Other");
+//            List<String> mockStatuses = Arrays.asList("Single", "In a relationship", "Engaged", "Married");
+//
+//            AddFriendView view = new AddFriendView(mockGenders, mockStatuses);
+//
+//            JFrame frame = new JFrame("Add Friend View Test");
+//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//            frame.setContentPane(view);
+//            frame.pack();
+//            frame.setSize(550, 620);
+//            frame.setLocationRelativeTo(null);
+//            frame.setVisible(true);
+//        });
+//    }
     private static void setLookAndFeel(){
         try
         {
