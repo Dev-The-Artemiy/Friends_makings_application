@@ -51,6 +51,12 @@ public class ViewServiceAdapterTests {
         friend.setDescription("hL(f.RY+;1MG/]cL:&/crYT?56aqW4XLnSru5y?]M?0VG#m.2@N");
         adapter.adaptAddFriend(friend);
         assertEquals(BackendErrorState.LongDescription,adapter.getErrorState());
+
+        friend.setDescription("");
+        friend.setBirthDate(null);
+        adapter.adaptAddFriend(friend);
+        assertEquals(BackendErrorState.NullBirthDate, adapter.getErrorState());
+
     }
 
     @Test

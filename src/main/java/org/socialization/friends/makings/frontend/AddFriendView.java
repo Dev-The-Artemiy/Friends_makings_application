@@ -1,6 +1,10 @@
 package org.socialization.friends.makings.frontend;
 
 import org.jdatepicker.JDatePicker;
+import org.socialization.friends.makings.backend.friend.Friend;
+import org.socialization.friends.makings.backend.friend.friendBuilder.FriendBuilder;
+import org.socialization.friends.makings.backend.friend.friendBuilder.FriendBuilderImpl;
+import org.socialization.friends.makings.backend.friend.services.BackendErrorState;
 import org.socialization.friends.makings.backend.friend.services.FriendService;
 import org.socialization.friends.makings.backend.friend.services.ViewServiceAdapter;
 import org.springframework.stereotype.Component;
@@ -9,8 +13,11 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Date;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -130,6 +137,10 @@ public class AddFriendView extends JPanel {
             dateMetPicker.getModel().setSelected(false);
         });
 
+
+    }
+
+    public void setUpListeners(){
         backButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -137,7 +148,58 @@ public class AddFriendView extends JPanel {
                 frame.dispose();
             }
         });
+
+        this.addButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String name = nameTextField.getText();
+                if(name == null){
+                    name = "";
+                }
+                String surname = surnameTextField.getText();
+                if(surname == null){
+                    surname = "";
+                }
+                String gender = genderComboBox.getSelectedItem().toString();
+                if(gender == null){
+                    gender = "";
+                }
+                String status = statusComboBox.getSelectedItem().toString();
+                if(status == null){
+                    status = "";
+                }
+                Calendar birthDateCalendar = (Calendar)birthDatePicker.getModel().getValue();
+                Date birthDate = null;
+                if(birthDateCalendar != null){
+                    birthDate = birthDateCalendar.getTime();
+                }
+                FriendBuilder builder =
+                        new FriendBuilderImpl(name, surname, gender, status, birthDate);
+                String description = descriptionArea.getText();
+
+                    description = description.trim();
+                    if(description.isEmpty()){
+                        description = null;
+                    }
+                builder.setDescription(description);
+
+                Calendar calendar = (Calendar)dateMetPicker.getModel().getValue();
+                if(calendar == null){
+                    builder.setDateMet(null);
+                }
+                else {
+                    Date dateMet = calendar.getTime();
+                    builder.setDateMet(dateMet);
+                }
+                Friend friend = builder.build();
+
+                adapter.adaptAddFriend(friend);
+                BackendErrorState errorState = adapter.getErrorState();
     }
+        });
+    }
+
+
 
     private void populateComboBoxes(List<String> genders, List<String> statuses) {
         DefaultComboBoxModel<String> genderModel = new DefaultComboBoxModel<>();

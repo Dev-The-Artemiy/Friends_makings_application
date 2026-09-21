@@ -5,7 +5,8 @@ public enum BackendErrorState {
     ,LongDescription(1)
     ,BadStatus(2)
     ,BadGender(3)
-    ,BadFriendId(4);
+    ,BadFriendId(4)
+    ,NullBirthDate(5);
 
     private int code;
     BackendErrorState(int code) {

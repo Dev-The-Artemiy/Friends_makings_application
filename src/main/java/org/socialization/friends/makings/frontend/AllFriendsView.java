@@ -107,7 +107,7 @@ public class AllFriendsView extends JPanel {
         public Object getValueAt(int rowIndex, int columnIndex) {
             Friend friend = friends.get(rowIndex);
             switch (columnIndex) {
-                case 0: return rowIndex + 1;
+                case 0: return friend.getId();
                 case 1: return friend.getName();
                 case 2: return friend.getSurname();
                 case 3: return formatDate(friend.getBirthDate());

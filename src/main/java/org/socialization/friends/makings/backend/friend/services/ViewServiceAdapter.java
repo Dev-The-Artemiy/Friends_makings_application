@@ -2,10 +2,7 @@ package org.socialization.friends.makings.backend.friend.services;
 
 import com.sun.jdi.VoidType;
 import org.socialization.friends.makings.backend.friend.Friend;
-import org.socialization.friends.makings.backend.friend.exceptions.LongDescriptionException;
-import org.socialization.friends.makings.backend.friend.exceptions.NoSuchFriendIdException;
-import org.socialization.friends.makings.backend.friend.exceptions.NoSuchGenderException;
-import org.socialization.friends.makings.backend.friend.exceptions.NoSuchStatusException;
+import org.socialization.friends.makings.backend.friend.exceptions.*;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -39,6 +36,9 @@ public class ViewServiceAdapter implements ServiceAdapter {
         }
         catch(NoSuchGenderException e){
             errorState = BackendErrorState.BadGender;
+        }
+        catch(NullBirthDateException e){
+            errorState = BackendErrorState.NullBirthDate;
         }
         return newFriendId;
     }

@@ -110,10 +110,11 @@ public class Friend {
     @Override
     public String toString() {
         return "Friend{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", Gender='" + gender + '\'' +
-                ", Status='" + status + '\'' +
+                ", gender='" + gender + '\'' +
+                ", status='" + status + '\'' +
                 ", birthDate=" + birthDate +
                 ", dateMet=" + dateMet +
                 ", description=" + description +

@@ -1,6 +1,65 @@
+Tue Sep 22 00:43:33 CEST 2026 Thread[#1,main,5,main] Cleanup action starting
+java.sql.SQLException: Database 'friend' not found.
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(SQLExceptionFactory.java:115)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(SQLExceptionFactory.java:141)
+	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Util.java:225)
+	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Util.java:220)
+	at org.apache.derby.impl.jdbc.EmbedConnection.newSQLException(EmbedConnection.java:3208)
+	at org.apache.derby.impl.jdbc.EmbedConnection.handleDBNotFound(EmbedConnection.java:767)
+	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(EmbedConnection.java:437)
+	at org.apache.derby.iapi.jdbc.InternalDriver.getNewEmbedConnection(InternalDriver.java:629)
+	at org.apache.derby.iapi.jdbc.InternalDriver.connect(InternalDriver.java:295)
+	at org.apache.derby.iapi.jdbc.InternalDriver.connect(InternalDriver.java:921)
+	at org.apache.derby.iapi.jdbc.AutoloadedDriver.connect(AutoloadedDriver.java:132)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:683)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:191)
+	at org.apache.derby.impl.tools.ij.ij.dynamicConnection(ij.java:1508)
+	at org.apache.derby.impl.tools.ij.ij.ConnectStatement(ij.java:1338)
+	at org.apache.derby.impl.tools.ij.ij.ijStatement(ij.java:1119)
+	at org.apache.derby.impl.tools.ij.utilMain.runScriptGuts(utilMain.java:353)
+	at org.apache.derby.impl.tools.ij.utilMain.go(utilMain.java:251)
+	at org.apache.derby.impl.tools.ij.Main.go(Main.java:214)
+	at org.apache.derby.impl.tools.ij.Main.mainCore(Main.java:169)
+	at org.apache.derby.impl.tools.ij.Main.main(Main.java:71)
+	at org.apache.derby.tools.ij.main(ij.java:59)
+	at org.apache.derby.run.run.main(run.java:55)
+Caused by: ERROR XJ004: Database 'friend' not found.
+	at org.apache.derby.shared.common.error.StandardException.newException(StandardException.java:299)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.wrapArgsForTransportAcrossDRDA(SQLExceptionFactory.java:170)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(SQLExceptionFactory.java:75)
+	... 22 more
+============= begin nested exception, level (1) ===========
+ERROR XJ004: Database 'friend' not found.
+	at org.apache.derby.shared.common.error.StandardException.newException(StandardException.java:299)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.wrapArgsForTransportAcrossDRDA(SQLExceptionFactory.java:170)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(SQLExceptionFactory.java:75)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(SQLExceptionFactory.java:141)
+	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Util.java:225)
+	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Util.java:220)
+	at org.apache.derby.impl.jdbc.EmbedConnection.newSQLException(EmbedConnection.java:3208)
+	at org.apache.derby.impl.jdbc.EmbedConnection.handleDBNotFound(EmbedConnection.java:767)
+	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(EmbedConnection.java:437)
+	at org.apache.derby.iapi.jdbc.InternalDriver.getNewEmbedConnection(InternalDriver.java:629)
+	at org.apache.derby.iapi.jdbc.InternalDriver.connect(InternalDriver.java:295)
+	at org.apache.derby.iapi.jdbc.InternalDriver.connect(InternalDriver.java:921)
+	at org.apache.derby.iapi.jdbc.AutoloadedDriver.connect(AutoloadedDriver.java:132)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:683)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:191)
+	at org.apache.derby.impl.tools.ij.ij.dynamicConnection(ij.java:1508)
+	at org.apache.derby.impl.tools.ij.ij.ConnectStatement(ij.java:1338)
+	at org.apache.derby.impl.tools.ij.ij.ijStatement(ij.java:1119)
+	at org.apache.derby.impl.tools.ij.utilMain.runScriptGuts(utilMain.java:353)
+	at org.apache.derby.impl.tools.ij.utilMain.go(utilMain.java:251)
+	at org.apache.derby.impl.tools.ij.Main.go(Main.java:214)
+	at org.apache.derby.impl.tools.ij.Main.mainCore(Main.java:169)
+	at org.apache.derby.impl.tools.ij.Main.main(Main.java:71)
+	at org.apache.derby.tools.ij.main(ij.java:59)
+	at org.apache.derby.run.run.main(run.java:55)
+============= end nested exception, level (1) ===========
+Cleanup action completed
 ----------------------------------------------------------------
-Sun Sep 20 19:03:27 CEST 2026:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.17.1.0 - (1913217): instance a816c00e-01a0-bfc5-cfec-00000ea00000 
+Tue Sep 22 00:43:41 CEST 2026:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.17.1.0 - (1913217): instance a816c00e-01a0-c623-8b35-00000ea00000 
 on database directory C:\Users\artem\IdeaProjects\IntrovertFriendMaking\src\main\resources\friends with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@33909752 
 Loaded from file:/C:/Users/artem/Dev/Databases/ApacheDerby/db-derby-10.17.1.0-bin/lib/derby.jar
 java.vendor=Oracle Corporation
@@ -12,8 +71,8 @@ os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Sun Sep 20 19:18:13 CEST 2026: Shutting down Derby engine
+Tue Sep 22 00:45:34 CEST 2026: Shutting down Derby engine
 ----------------------------------------------------------------
-Sun Sep 20 19:18:13 CEST 2026:
-Shutting down instance a816c00e-01a0-bfc5-cfec-00000ea00000 on database directory C:\Users\artem\IdeaProjects\IntrovertFriendMaking\src\main\resources\friends with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@33909752 
+Tue Sep 22 00:45:34 CEST 2026:
+Shutting down instance a816c00e-01a0-c623-8b35-00000ea00000 on database directory C:\Users\artem\IdeaProjects\IntrovertFriendMaking\src\main\resources\friends with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@33909752 
 ----------------------------------------------------------------

@@ -1,10 +1,7 @@
 package org.socialization.friends.makings.backend.services;
 
 import org.socialization.friends.makings.backend.friend.Friend;
-import org.socialization.friends.makings.backend.friend.exceptions.LongDescriptionException;
-import org.socialization.friends.makings.backend.friend.exceptions.NoSuchFriendIdException;
-import org.socialization.friends.makings.backend.friend.exceptions.NoSuchGenderException;
-import org.socialization.friends.makings.backend.friend.exceptions.NoSuchStatusException;
+import org.socialization.friends.makings.backend.friend.exceptions.*;
 import org.socialization.friends.makings.backend.friend.friendBuilder.FriendBuilder;
 import org.socialization.friends.makings.backend.friend.friendBuilder.FriendBuilderImpl;
 import org.socialization.friends.makings.backend.friend.services.FriendService;
@@ -62,6 +59,9 @@ public class StubFriendServiceImpl implements FriendService {
         }
         if(friend.getDescription().isPresent() && friend.getDescription().get().length() > 50){
             throw new LongDescriptionException("");
+        }
+        if(friend.getBirthDate() == null){
+            throw new NullBirthDateException("");
         }
         return 0;
     }

@@ -1,6 +1,9 @@
 package org.socialization.friends;
 
 import org.apache.derby.impl.tools.sysinfo.Main;
+import org.socialization.friends.makings.backend.friend.Friend;
+import org.socialization.friends.makings.backend.friend.friendBuilder.FriendBuilder;
+import org.socialization.friends.makings.backend.friend.friendBuilder.FriendBuilderImpl;
 import org.socialization.friends.makings.backend.friend.repositories.FriendRepository;
 import org.socialization.friends.makings.backend.friend.repositories.GenderRepository;
 import org.socialization.friends.makings.backend.friend.repositories.StatusRepository;
@@ -17,6 +20,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 import javax.swing.*;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,6 +33,7 @@ public class IntrovertFriendMakingApplication {
                 new SpringApplicationBuilder(IntrovertFriendMakingApplication.class)
                         .headless(false)
                         .web(WebApplicationType.NONE).run();
+
         ViewServiceAdapter adapter = (ViewServiceAdapter) context.getBean("viewServiceAdapter");
         ListableService listableService = (ListableService)context.getBean("listableServiceImpl");
 
@@ -54,5 +59,19 @@ public class IntrovertFriendMakingApplication {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private static Friend getTestFriend(){
+        FriendBuilder builder = new FriendBuilderImpl(
+                "Kate"
+                ,"Wattson"
+                , "female"
+                ,"barely-known"
+                , new Date());
+        Friend friend = builder
+                .setDateMet(new Date())
+                .setDescription("Funny girl but rude.")
+                .build();
+        return friend;
     }
 }

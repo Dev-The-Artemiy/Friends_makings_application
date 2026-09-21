@@ -75,10 +75,11 @@ public class FriendMainWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent event){
                 JFrame frame = getFrame(960,540, "Add friend");
-                JPanel addFriendView = new AddFriendView(adapter
+                AddFriendView addFriendView = new AddFriendView(adapter
                         ,listableService.getGenders()
                         ,listableService.getStatuses());
                 frame.getContentPane().add(addFriendView);
+                addFriendView.setUpListeners();
                 frame.setVisible(true);
             }
         });
