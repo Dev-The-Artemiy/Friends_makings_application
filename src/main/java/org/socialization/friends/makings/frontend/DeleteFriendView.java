@@ -1,5 +1,6 @@
 package org.socialization.friends.makings.frontend;
 
+import org.socialization.friends.makings.backend.friend.services.BackendErrorState;
 import org.socialization.friends.makings.backend.friend.services.FriendService;
 import org.socialization.friends.makings.backend.friend.services.ViewServiceAdapter;
 import org.springframework.stereotype.Component;
@@ -8,6 +9,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 
 public class DeleteFriendView extends JPanel {
@@ -57,15 +59,47 @@ public class DeleteFriendView extends JPanel {
         body.add(deleteButton);
 
         this.add(body, BorderLayout.CENTER);
-
-        // Wire up listeners
-        setupListeners();
     }
 
-    private void setupListeners() {
-        // No custom close button anymore — the native window's own close
-        // control (wired by JFrame.setDefaultCloseOperation) handles closing.
-        // Add other UI-only listeners here as the view grows.
+    public void setupListeners() {
+        deleteButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String strFriendId = friendIdTextField.getText();
+                Integer intFriendId = null;
+                try{
+                    intFriendId = Integer.parseInt(strFriendId);
+                }catch(NumberFormatException exc){
+                    JOptionPane.showMessageDialog(
+                            SwingUtilities.getWindowAncestor(deleteButton)
+                            ,"The ID format is incorrect"
+                            ,"Friend error"
+                            ,JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                adapter.adaptDeleteFriend(intFriendId);
+
+                BackendErrorState errorState = adapter.getErrorState();
+
+                switch (errorState){
+                    case OK -> JOptionPane.showMessageDialog(
+                            SwingUtilities.getWindowAncestor(deleteButton)
+                            ,"The friend was successfully deleted"
+                            ,"Information"
+                            ,JOptionPane.INFORMATION_MESSAGE);
+                    case BadFriendId -> showErrorDialog("Friend with such ID was not found");
+                }
+
+            }
+        });
+    }
+
+    private void showErrorDialog(String message){
+        JOptionPane.showMessageDialog(
+                SwingUtilities.getWindowAncestor(deleteButton)
+                ,message
+                ,"Friend error"
+                ,JOptionPane.ERROR_MESSAGE);
     }
 
     // Getters

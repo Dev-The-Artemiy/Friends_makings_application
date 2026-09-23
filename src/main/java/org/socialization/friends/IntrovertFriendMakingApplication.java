@@ -47,7 +47,7 @@ public class IntrovertFriendMakingApplication {
         try
         {
             // Here you can select the selected theme class name in JTattoo
-            UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
+            UIManager.setLookAndFeel("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");
         }
         catch (InstantiationException ex)
         {

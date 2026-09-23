@@ -78,15 +78,22 @@ public class JdbcFriendRepository implements FriendRepository{
 
     @Override
     public void updateFriendStatus(Integer friendId, String newStatus) {
+        String sql = env.getProperty("sql.id_friend_exists");
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, friendId);
+
+        if(count.equals(0)){
+            throw new NoSuchFriendIdException("No friend with id " + friendId + " found");
+        }
+
         Integer newStatusId = checkStatusExists(newStatus);
-        String sql = env.getProperty("sql.update_friend_status");
+         sql = env.getProperty("sql.update_friend_status");
         jdbcTemplate.update(sql,
                 newStatusId
-                , friendId);
+                ,friendId);
 
     }
 
-    public Integer checkStatusExists(String status){
+    private Integer checkStatusExists(String status){
         String sql = env.getProperty("sql.find_status_by_title");
         try{
             return jdbcTemplate.queryForObject(sql, Integer.class, status);

@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -29,7 +30,29 @@ public class AllFriendsView extends JPanel {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private final FriendTableModel tableModel = new FriendTableModel();
-    private final JTable friendsTable = new JTable(tableModel);
+    private final JTable friendsTable = new JTable(tableModel){
+        @Override
+        public String getToolTipText(MouseEvent event) {
+            Point p = event.getPoint();
+            int rowIndex = rowAtPoint(p);
+            int columnIndex = columnAtPoint(p);
+
+            // Convert view column index to model column index (in case columns are reordered)
+            int modelColumnIndex = convertColumnIndexToModel(columnIndex);
+
+            // Check if mouse is over a valid row and specifically over the "Description" column (index 7)
+            if (rowIndex >= 0 && modelColumnIndex == 7) {
+                Object value = getModel().getValueAt(rowIndex, modelColumnIndex);
+                if (value != null && !value.toString().isEmpty() && !value.toString().equals("None")) {
+                    // Multi-line HTML tooltip support so long descriptions wrap nicely
+                    return "<html><body style='width: 250px; word-wrap: break-word;'>"
+                            + value.toString()
+                            + "</body></html>";
+                }
+            }
+            return super.getToolTipText(event);
+        }
+    };
 
     public AllFriendsView(List<Friend> friends) {
         this.friends = friends;
@@ -71,6 +94,8 @@ public class AllFriendsView extends JPanel {
     }
 
     public static class FriendTableModel extends AbstractTableModel {
+
+
 
         private List<Friend> friends = new ArrayList<>();
 

@@ -88,7 +88,8 @@ public class FriendMainWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent event){
                 JFrame frame = getFrame(450,280, "Update friend status");
-                JPanel updateFriendStatusView = new UpdateFriendStatusView(listableService.getStatuses());
+                UpdateFriendStatusView updateFriendStatusView = new UpdateFriendStatusView(adapter,listableService.getStatuses());
+                updateFriendStatusView.setupListeners();
                 frame.getContentPane().add(updateFriendStatusView);
                 frame.setVisible(true);
             }
@@ -98,7 +99,8 @@ public class FriendMainWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent event){
                 JFrame frame = getFrame(450,280, "Delete friend");
-                JPanel deleteFriendView = new DeleteFriendView(adapter);
+                DeleteFriendView deleteFriendView = new DeleteFriendView(adapter);
+                deleteFriendView.setupListeners();
                 frame.getContentPane().add(deleteFriendView);
                 frame.setVisible(true);
             }

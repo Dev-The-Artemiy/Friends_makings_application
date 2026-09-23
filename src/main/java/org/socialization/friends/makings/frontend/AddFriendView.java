@@ -195,8 +195,28 @@ public class AddFriendView extends JPanel {
 
                 adapter.adaptAddFriend(friend);
                 BackendErrorState errorState = adapter.getErrorState();
+
+                switch(errorState){
+                    case OK -> JOptionPane.showMessageDialog(
+                            SwingUtilities.getWindowAncestor(addButton)
+                    ,"The friend was successfully added"
+                    ,"Information"
+                    ,JOptionPane.INFORMATION_MESSAGE);
+                    case BadStatus -> showErrorDialog("Friend status does not exist");
+                    case BadGender -> showErrorDialog("Friend gender does not exist");
+                    case LongDescription -> showErrorDialog("The description is too long max (50 symbols)");
+                    case NullBirthDate -> showErrorDialog("Birth date cannot be empty");
+                }
     }
         });
+    }
+
+    private void showErrorDialog(String message){
+        JOptionPane.showMessageDialog(
+                SwingUtilities.getWindowAncestor(addButton)
+                ,message
+                ,"Friend error"
+                ,JOptionPane.ERROR_MESSAGE);
     }
 
 
